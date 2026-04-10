@@ -19,6 +19,7 @@ Target device: Amazon Kindle
 ## 🏗️ Tech Stack Requirements
 
 ### Frontend
+
 - React (modern functional components)
 - Simple dashboard UI:
   - user signup/login
@@ -29,7 +30,8 @@ Target device: Amazon Kindle
 ---
 
 ### Backend
-- .NET 8 Azure Functions
+
+- .NET Azure Functions
 - Email ingestion trigger (SMTP / SendGrid inbound parse / webhook)
 - HTML parsing + transformation service
 - EPUB generation service
@@ -38,6 +40,7 @@ Target device: Amazon Kindle
 ---
 
 ### Database + Auth
+
 - Supabase
   - Authentication (email/password)
   - PostgreSQL database
@@ -54,13 +57,14 @@ Newsletter email arrives
 → Extract main article content  
 → Convert to EPUB  
 → Send to Kindle email  
-→ Store record in Supabase  
+→ Store record in Supabase
 
 ---
 
 ## 📦 Functional Requirements
 
 ### 1. Email Ingestion Service (Azure Function)
+
 - Accept incoming email payload (HTML + metadata)
 - Identify user via subscription email mapping
 - Store raw email (optional)
@@ -69,17 +73,20 @@ Newsletter email arrives
 ---
 
 ### 2. HTML Processing Pipeline
+
 - Remove scripts/styles
 - Remove tracking pixels
 - Strip email-client-specific markup (Outlook/Gmail junk)
 - Extract main readable content
 
 Output:
+
 - clean structured HTML
 
 ---
 
 ### 3. EPUB Generator
+
 - Convert cleaned HTML into EPUB
 - Ensure Kindle compatibility:
   - simple HTML structure
@@ -91,6 +98,7 @@ Target device: Amazon Kindle
 ---
 
 ### 4. Kindle Delivery Service
+
 - Send EPUB or HTML via email to user Kindle address
 - Ensure stable sender identity (verified domain)
 
@@ -107,6 +115,7 @@ Design tables:
 - delivery_logs
 
 Include:
+
 - timestamps
 - processing status
 - error logs
@@ -116,6 +125,7 @@ Include:
 ### 6. Frontend (React)
 
 Pages:
+
 - Login / signup (Supabase auth)
 - Dashboard:
   - Kindle email settings
