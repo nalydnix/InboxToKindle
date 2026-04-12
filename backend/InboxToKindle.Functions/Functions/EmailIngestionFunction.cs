@@ -20,24 +20,18 @@ public sealed class EmailIngestionFunction(
         [HttpTrigger(AuthorizationLevel.Function, "post", Route = "ingest/email")] HttpRequestData request,
         CancellationToken cancellationToken)
     {
-        if (!request.Headers.TryGetValues("x-inbound-secret", out var headerValues) ||
-            headerValues.FirstOrDefault() != sendGridOptions.Value.InboundWebhookSecret)
-        {
-            var unauthorized = request.CreateResponse(HttpStatusCode.Unauthorized);
-            await unauthorized.WriteStringAsync("Unauthorized", cancellationToken);
-            return unauthorized;
-        }
 
         var payload = await JsonSerializer.DeserializeAsync<InboundEmailPayload>(
             request.Body,
             new JsonSerializerOptions(JsonSerializerDefaults.Web),
             cancellationToken);
 
+        // Only for MailerSend inbound webhook validation - can be removed once webhook is validated
         if (payload is null)
         {
-            var badRequest = request.CreateResponse(HttpStatusCode.BadRequest);
-            await badRequest.WriteStringAsync("Invalid payload", cancellationToken);
-            return badRequest;
+            var ok = request.CreateResponse(HttpStatusCode.OK);
+            await ok.WriteStringAsync("OK", cancellationToken);
+            return ok;
         }
 
         logger.LogInformation("Received inbound email for {To}", payload.To);
