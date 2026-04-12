@@ -9,12 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AngleSharp" Version="1.1.2" />
-    <PackageReference Include="Ganss.Xss" Version="5.1.0" />
+    <PackageReference Include="AngleSharp" Version="0.17.1" />
+    <PackageReference Include="HtmlSanitizer" Version="9.0.892" />
     <PackageReference Include="Microsoft.Azure.Functions.Worker" Version="2.0.0" />
     <PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Http" Version="3.2.0" />
     <PackageReference Include="Microsoft.Azure.Functions.Worker.Sdk" Version="2.0.4" OutputItemType="Analyzer" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.1" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
     <PackageReference Include="SendGrid" Version="9.29.3" />
     <PackageReference Include="Supabase" Version="1.1.1" />
