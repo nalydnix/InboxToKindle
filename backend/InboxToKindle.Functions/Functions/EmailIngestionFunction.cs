@@ -26,9 +26,15 @@ public sealed class EmailIngestionFunction(
             new JsonSerializerOptions(JsonSerializerDefaults.Web),
             cancellationToken);
 
-        // Only for MailerSend inbound webhook validation - can be removed once webhook is validated
-        if (payload is null)
+        if (payload == null)
         {
+            logger.LogWarning("Failed to deserialize inbound email payload.");
+            return request.CreateResponse(HttpStatusCode.BadRequest);
+        }
+
+        if (payload.Type == "webhook.test")
+        {
+            logger.LogInformation("Received webhook test request from MailerSend. Responding with 200 OK.");
             var ok = request.CreateResponse(HttpStatusCode.OK);
             await ok.WriteStringAsync("OK", cancellationToken);
             return ok;
